@@ -1,0 +1,60 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+//
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0.0.Final'
+group = 'pt.jmfgameiro.resources'
+
+//
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Logger Resources', 'Implementation-Version': version
+    }
+}
+
+//
+repositories {
+	mavenLocal()
+    mavenCentral()
+}
+
+//
+dependencies {
+	compile 	group: 'ch.qos.logback', 			name: 'logback-classic',	version: '1.1.7'
+	compile		group: 'pt.jmfgameiro.resources',	name: 'Core',				version: '1.0.0.Final'
+	compile		group: 'pt.jmfgameiro.resources',	name: 'Ehcache',			version: '1.0.0.Final'
+	
+    testCompile group: 'junit',						name: 'junit',				version: '4.+'
+}
+
+//
+/*compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+compileTestJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}*/
+
+//
+task sourcesJar( type: Jar, dependsOn: classes ) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+artifacts {
+    archives sourcesJar
+}
+
+//
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			repository( url: "file://localhost/tmp/myRepo/" )
+		}
+	}
+}
+
