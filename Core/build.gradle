@@ -1,6 +1,5 @@
 apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'ear'
+apply plugin: 'eclipse'
 apply plugin: 'maven'
 
 //
@@ -53,16 +52,6 @@ uploadArchives {
 	repositories {
 		mavenDeployer {
 			repository( url: "file://localhost/tmp/myRepo/" )
-		}
-	}
-}
-
-//
-eclipse {
-	wtp {
-		facet {
-			facet name: 'jst.java',		version: sourceCompatibility
-			facet name: 'wst.jsdt.web', version: '1.0'
 		}
 	}
 }
