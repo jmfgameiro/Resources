@@ -1,6 +1,6 @@
 package pt.jmfgameiro.resources.core.factory;
 
-public class FactoryUninitializedException extends RuntimeException {
+public class FactoryIsUninitializedException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
 }
