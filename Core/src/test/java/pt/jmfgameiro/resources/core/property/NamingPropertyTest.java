@@ -10,11 +10,11 @@ import org.junit.Test;
 public final class NamingPropertyTest {
 	
 	/***** CONSTANTS *****/
-	private static final String testBindName = "test:/Bind";
-	private static final String testBindValue = "myBindValue";
-	private static final String testBindErr1 = "The property value is null!";
-	private static final String testBindErr2 = "The property value is different than the given value!";
-	private static final String testBindMsg = "Property Value: ";
+	private static final String TESTBINDNAME = "test:/Bind";
+	private static final String TESTBINDVALUE = "myBindValue";
+	private static final String TESTBINDERR1 = "The property value is null!";
+	private static final String TESTBINDERR2 = "The property value is different than the given value!";
+	private static final String TESTBINDMSG = "Property Value: ";
 	
 	
 	/***** BEFORE *****/
@@ -22,17 +22,17 @@ public final class NamingPropertyTest {
 	public void init() {
 		// References: http://en.newinstance.it/2009/03/27/mocking-jndi/
 		System.setProperty( Context.INITIAL_CONTEXT_FACTORY, MockInitialContextFactory.class.getName() );
-		MockInitialContextFactory.bind( testBindName, testBindValue );
+		MockInitialContextFactory.bind( TESTBINDNAME, TESTBINDVALUE );
 	}
 	
 	
 	/***** TEST *****/
 	@Test
 	public void test() {
-		NamingProperty< String > test = new NamingProperty<String>( testBindName );
-		assertNotNull( testBindErr1, test.getProperty() );
-		assertEquals( testBindErr2, testBindValue, test.getProperty() );
-		System.out.println( testBindMsg + test.getProperty() );
+		NamingProperty< String > test = new NamingProperty<String>( TESTBINDNAME );
+		assertNotNull( TESTBINDERR1, test.getProperty() );
+		assertEquals( TESTBINDERR2, TESTBINDVALUE, test.getProperty() );
+		System.out.println( TESTBINDMSG + test.getProperty() );
 	}
 	
 	

@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -13,15 +12,14 @@ import com.google.gson.GsonBuilder;
 public final class LocalDateJsonSerializerTest {
 	
 	/***** CONSTANTS *****/
-	private static Gson gsonFormater;
+	private static final Gson GSONFORMATTER;
 	
 	
-	/***** BEFORE *****/
-	@Before
-	public void init() {
+	/***** STATIC *****/
+	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter( byte[].class, new LocalDateJsonSerializer() );
-		gsonFormater = gsonBuilder.create();
+		GSONFORMATTER = gsonBuilder.create();
 	}
 	
 	
@@ -29,7 +27,7 @@ public final class LocalDateJsonSerializerTest {
 	@Test
 	public void test() {
 		LocalDate localDate = LocalDate.now();
-		String localDateStr = gsonFormater.toJson( localDate );
+		String localDateStr = GSONFORMATTER.toJson( localDate );
 		assertEquals( localDateStr, 
 				"{\"year\":" + localDate.getYear() +
 				",\"month\":" + localDate.getMonthValue() +

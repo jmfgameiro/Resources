@@ -2,7 +2,6 @@ package pt.jmfgameiro.resources.core.jsonserializer;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -11,22 +10,21 @@ import com.google.gson.GsonBuilder;
 public final class JsonSerializerTest {
 	
 	/***** CONSTANTS *****/
-	private static Gson gsonFormater;
+	private static final Gson GSONFORMATTER;
 	
 	
-	/***** BEFORE *****/
-	@Before
-	public void init() {
+	/***** STATIC *****/
+	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.serializeNulls();
-		gsonFormater = gsonBuilder.create();
+		GSONFORMATTER = gsonBuilder.create();
 	}
 	
 	
 	/***** TEST *****/
 	@Test
 	public void test() {
-		String nullStr = gsonFormater.toJson( null );
+		String nullStr = GSONFORMATTER.toJson( null );
 		assertEquals( "null", nullStr );
 		System.out.println( nullStr );
 	}
