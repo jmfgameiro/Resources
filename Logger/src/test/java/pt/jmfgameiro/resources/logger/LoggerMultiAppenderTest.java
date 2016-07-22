@@ -4,20 +4,21 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public final class LoggerConsoleAppenderTest {
+public final class LoggerMultiAppenderTest {
 	
 	/***** CONSTANTS *****/
-	private final Logger LOG = LoggerFactory.getLogger( LoggerConsoleAppenderTest.class );
-	private static final String INFO_MSG = "Info Console Message";
+	private final Logger LOG = LoggerFactory.getLogger( LoggerMultiAppenderTest.class );
+	private static final String INFO_MSG = "Info File Message";
 	private static final String INFO_PARAM_NAME = "Parameter";
-	private static final Boolean INFO_PARAM_VALUE = true;
+	private static final Boolean INFO_PARAM_VALUE = false;
 	
 	
 	/***** BEFORE *****/
 	@BeforeClass
 	public static void init() throws Exception {
-		LoggerFactoryBuilder builder = new LoggerFactoryBuilder( "LOGGER_CONSOLE_TEST" );
+		LoggerFactoryBuilder builder = new LoggerFactoryBuilder( "LOGGER_TEST" );
 		builder.setConsoleAppender( true );
+		builder.setFileAppender( true );
 		LoggerFactory.build( builder );
 	}
 	

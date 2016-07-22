@@ -4,10 +4,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public final class LoggerFileTest {
+public final class LoggerFileAppenderTest {
 	
 	/***** CONSTANTS *****/
-	private final Logger LOG = LoggerFactory.getLogger( LoggerFileTest.class );
+	private final Logger LOG = LoggerFactory.getLogger( LoggerFileAppenderTest.class );
 	private static final String INFO_MSG = "Info File Message";
 	private static final String INFO_PARAM_NAME = "Parameter";
 	private static final Boolean INFO_PARAM_VALUE = false;
