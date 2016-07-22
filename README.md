@@ -1,8 +1,14 @@
-# Utils Projects
+# Resources Projects
 ## 1. Intro
 
 ## 2. Contents
 
-#### * Sample Projects (TODO)
+#### * Core
+
+#### * Ehcache
+
+#### * Logger
+
+#### * RestClient
 
 ## 3. 
