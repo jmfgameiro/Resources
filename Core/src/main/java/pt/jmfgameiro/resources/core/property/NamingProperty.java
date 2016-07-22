@@ -4,7 +4,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public final class NamingProperty< T > {
+public final class NamingProperty< T > implements Property< T > {
 	
 	/***** CONSTANTS *****/
 	private final String propertyName;

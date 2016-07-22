@@ -1,6 +1,6 @@
 package pt.jmfgameiro.resources.core.property;
 
-public final class SystemProperty< T > {
+public final class SystemProperty< T > implements Property< T > {
 	
 	/***** CONSTANTS *****/
 	private final String propertyName;
