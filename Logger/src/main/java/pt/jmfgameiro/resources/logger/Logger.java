@@ -1,6 +1,10 @@
 package pt.jmfgameiro.resources.logger;
 
-public final class Logger {
+import java.io.Serializable;
+
+public final class Logger implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	
 	/***** CONSTANTS *****/
 	private final String code;
@@ -68,5 +72,6 @@ public final class Logger {
 	public void info( String message, Object ... parameters ) {
 		this.slf4jLogger.info( this.formatter.formatMessage( this.code, message, parameters ) );
 	}
+	
 	
 }

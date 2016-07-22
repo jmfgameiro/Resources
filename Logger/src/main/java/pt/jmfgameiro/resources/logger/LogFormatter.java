@@ -1,5 +1,6 @@
 package pt.jmfgameiro.resources.logger;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.GregorianCalendar;
@@ -8,13 +9,14 @@ import pt.jmfgameiro.resources.core.jsonserializer.ByteArrayJsonSerializer;
 import pt.jmfgameiro.resources.core.jsonserializer.GregorianCalendarJsonSerializer;
 import pt.jmfgameiro.resources.core.jsonserializer.LocalDateJsonSerializer;
 import pt.jmfgameiro.resources.core.jsonserializer.LocalDateTimeJsonSerializer;
-
 import ch.qos.logback.classic.spi.ThrowableProxy;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-final class LogFormatter {
+final class LogFormatter implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	
 	/***** CONSTANTS *****/
 	private final String beginModifier = "<CALL>";
@@ -23,20 +25,11 @@ final class LogFormatter {
 	private final String exceptionIdenter = "------: ";
 	private final String simpleMessageModifier = "<MESSAGE>";
 	private final String dateFormat = "dd-MM-yyyy HH:mm:ss.SSS z";
-	
-	private final Gson gsonFormatter;
 	private final ThrowableRenderer throwableRenderer;
 	
 	
 	/***** CONSTRUCTOR *****/
 	LogFormatter() {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.serializeNulls().setDateFormat( dateFormat );
-		gsonBuilder.registerTypeAdapter( GregorianCalendar.class, new GregorianCalendarJsonSerializer() );
-		gsonBuilder.registerTypeAdapter( LocalDateTime.class, new LocalDateTimeJsonSerializer() );
-		gsonBuilder.registerTypeAdapter( LocalDate.class, new LocalDateJsonSerializer() );
-		gsonBuilder.registerTypeAdapter( byte[].class, new ByteArrayJsonSerializer() );
-		this.gsonFormatter = gsonBuilder.create();
 		this.throwableRenderer = new ThrowableRenderer( this.exceptionIdenter );
 		throwableRenderer.start();
 	}
@@ -102,7 +95,8 @@ final class LogFormatter {
 	}
 	
 	private void formatMethodReturnBody( StringBuilder stringBuilder, String methodName, Object attribute ) {
-		stringBuilder.append( methodName + "( {\"return\":" + this.gsonFormatter.toJson( attribute ) + "} )" );
+		Gson gsonFormatter = gsonFormatter();
+		stringBuilder.append( methodName + "( {\"return\":" + gsonFormatter.toJson( attribute ) + "} )" );
 	}
 	
 	private void formatMethodReturnBody( StringBuilder stringBuilder, String methodName ) {
@@ -110,7 +104,18 @@ final class LogFormatter {
 	}
 	
 	private void formatAttribute( StringBuilder stringBuilder, String attributeName, Object attribute ) {
-		stringBuilder.append( this.gsonFormatter.toJson( attributeName ) + ":" + this.gsonFormatter.toJson( attribute ) );
+		Gson gsonFormatter = gsonFormatter();
+		stringBuilder.append( gsonFormatter.toJson( attributeName ) + ":" + gsonFormatter.toJson( attribute ) );
+	}
+	
+	private Gson gsonFormatter() {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.serializeNulls().setDateFormat( dateFormat );
+		gsonBuilder.registerTypeAdapter( GregorianCalendar.class, new GregorianCalendarJsonSerializer() );
+		gsonBuilder.registerTypeAdapter( LocalDateTime.class, new LocalDateTimeJsonSerializer() );
+		gsonBuilder.registerTypeAdapter( LocalDate.class, new LocalDateJsonSerializer() );
+		gsonBuilder.registerTypeAdapter( byte[].class, new ByteArrayJsonSerializer() );
+		return gsonBuilder.create();
 	}
 	
 	

@@ -1,11 +1,15 @@
 package pt.jmfgameiro.resources.logger;
 
+import java.io.Serializable;
+
 import ch.qos.logback.classic.pattern.ExtendedThrowableProxyConverter;
 import ch.qos.logback.classic.spi.IThrowableProxy;
 import ch.qos.logback.classic.spi.ThrowableProxyUtil;
 import ch.qos.logback.core.CoreConstants;
 
-final class ThrowableRenderer extends ExtendedThrowableProxyConverter {
+final class ThrowableRenderer extends ExtendedThrowableProxyConverter implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	
 	/***** CONSTANTS *****/
 	private final String exceptionIdenter;
