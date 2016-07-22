@@ -1,6 +1,8 @@
 package pt.jmfgameiro.resources.logger;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.ehcache.Cache;
@@ -13,6 +15,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.AppenderBase;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
@@ -29,6 +32,7 @@ public final class LoggerFactory {
 	private static FactoryState STATE = FactoryState.UNINITIALIZED;
 	private static RollingFileAppender< ILoggingEvent > ROLLING_FILE_APPENDER;
 	private static ConsoleAppender< ILoggingEvent > CONSOLE_APPENDER;
+	private static List< AppenderBase< ILoggingEvent > > CUSTOM_APPENDERS;
 	private static Level LEVEL;
 	
 	private static final LogFormatter FORMATTER = new LogFormatter();
@@ -46,7 +50,7 @@ public final class LoggerFactory {
 			case UNINITIALIZED:
 			case FAILED_INITIALIZATION:
 				try {
-					if( !builder.isConsoleAppender() && !builder.isFileAppender() )
+					if( !builder.isConsoleAppender() && !builder.isFileAppender() && builder.getCustomAppenders().isEmpty() )
 						throw new IllegalArgumentException( "No appenders were defined!" );
 					
 					// Logger Level
@@ -58,10 +62,10 @@ public final class LoggerFactory {
 					// File Appender
 					if( builder.isFileAppender() ) {
 						// File Appender Pattern Layout
-						PatternLayoutEncoder filePatternLayoutEncoder = new PatternLayoutEncoder();
-						filePatternLayoutEncoder.setPattern( builder.getPatternLayout() );
-						filePatternLayoutEncoder.setContext( loggerContext );
-						filePatternLayoutEncoder.start();
+						PatternLayoutEncoder patternLayoutEncoder = new PatternLayoutEncoder();
+						patternLayoutEncoder.setPattern( builder.getPatternLayout() );
+						patternLayoutEncoder.setContext( loggerContext );
+						patternLayoutEncoder.start();
 						
 						// Time Policy
 						TimeBasedRollingPolicy< ILoggingEvent > timeBasedRollingPolicy = new TimeBasedRollingPolicy< ILoggingEvent >();
@@ -78,7 +82,7 @@ public final class LoggerFactory {
 						// Rolling File Appender
 						ROLLING_FILE_APPENDER = new RollingFileAppender< ILoggingEvent >();
 						ROLLING_FILE_APPENDER.setName( FILE_APPENDER_NAME );
-						ROLLING_FILE_APPENDER.setEncoder( filePatternLayoutEncoder );
+						ROLLING_FILE_APPENDER.setEncoder( patternLayoutEncoder );
 						ROLLING_FILE_APPENDER.setRollingPolicy( timeBasedRollingPolicy );
 						ROLLING_FILE_APPENDER.setContext( loggerContext );
 						
@@ -91,17 +95,25 @@ public final class LoggerFactory {
 					// Console Appender
 					if( builder.isConsoleAppender() ) {
 						// Console Appender Pattern Layout
-						PatternLayoutEncoder consolePatternLayoutEncoder = new PatternLayoutEncoder();
-						consolePatternLayoutEncoder.setPattern( builder.getPatternLayout() );
-						consolePatternLayoutEncoder.setContext( loggerContext );
-						consolePatternLayoutEncoder.start();
+						PatternLayoutEncoder patternLayoutEncoder = new PatternLayoutEncoder();
+						patternLayoutEncoder.setPattern( builder.getPatternLayout() );
+						patternLayoutEncoder.setContext( loggerContext );
+						patternLayoutEncoder.start();
 						
 						// Console Appender
 						CONSOLE_APPENDER = new ConsoleAppender< ILoggingEvent >();
 						CONSOLE_APPENDER.setName( CONSOLE_APPENDER_NAME );
-						CONSOLE_APPENDER.setEncoder( consolePatternLayoutEncoder );
+						CONSOLE_APPENDER.setEncoder( patternLayoutEncoder );
 						CONSOLE_APPENDER.setContext( loggerContext );
 						CONSOLE_APPENDER.start();
+					}
+					
+					// Custom Appenders
+					if( !builder.getCustomAppenders().isEmpty() ) {
+						CUSTOM_APPENDERS = new ArrayList< AppenderBase< ILoggingEvent > >();
+						for( AppenderBase< ILoggingEvent > appender : builder.getCustomAppenders() ) {
+							
+						}
 					}
 					
 					// Create Logger Cache
@@ -134,6 +146,7 @@ public final class LoggerFactory {
 		STATE = FactoryState.UNINITIALIZED;
 		ROLLING_FILE_APPENDER = null;
 		CONSOLE_APPENDER = null;
+		CUSTOM_APPENDERS = null;
 		LEVEL = null;
 		CacheFactory.MANAGER.removeCache( CACHE_NAME );
 	}

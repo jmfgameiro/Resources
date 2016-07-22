@@ -2,11 +2,15 @@ package pt.jmfgameiro.resources.logger;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.ehcache.config.units.MemoryUnit;
 
 import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.AppenderBase;
 import pt.jmfgameiro.resources.core.factory.FactoryTimePolicy;
 import pt.jmfgameiro.resources.core.property.Property;
 
@@ -31,6 +35,8 @@ public final class LoggerFactoryBuilder {
 	private int maxHistory = 90;
 	
 	private boolean consoleAppender = false;
+	
+	private List< AppenderBase< ILoggingEvent > > customAppenders = new ArrayList< AppenderBase< ILoggingEvent > >();
 	
 	
 	/***** CONSTRUCTOR *****/
@@ -62,6 +68,17 @@ public final class LoggerFactoryBuilder {
 		this.cacheSizeUnit = MemoryUnit.valueOf( cacheSizeUnitProperty.getProperty() );
 		this.cacheExpirationValue = cacheExpirationValueProperty.getProperty();
 		this.cacheExpirationUnit = TimeUnit.valueOf( cacheExpirationUnitProperty.getProperty() );
+	}
+	
+	
+	/***** PUBLIC *****/
+	public LoggerFactoryBuilder cleanCustomAppender() {
+		this.customAppenders = new ArrayList< AppenderBase< ILoggingEvent > >();
+		return this;
+	}
+	public LoggerFactoryBuilder addCustomAppender( AppenderBase< ILoggingEvent > appender ) {
+		this.customAppenders.add( appender );
+		return this;
 	}
 	
 	
@@ -241,6 +258,11 @@ public final class LoggerFactoryBuilder {
 			throw new IllegalArgumentException( "The consoleAppenderProperty cannot be null." );
 		this.consoleAppender = consoleAppenderProperty.getProperty();
 		return this;
+	}
+	
+	// Custom Appenders
+	public List< AppenderBase< ILoggingEvent > > getCustomAppenders() {
+		return customAppenders;
 	}
 	
 	
