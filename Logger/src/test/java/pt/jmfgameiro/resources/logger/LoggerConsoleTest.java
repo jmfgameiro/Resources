@@ -1,23 +1,23 @@
 package pt.jmfgameiro.resources.logger;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public final class LoggerSimpleTest {
+public final class LoggerConsoleTest {
 	
 	/***** CONSTANTS *****/
-	private final Logger LOG = LoggerFactory.getLogger( LoggerSimpleTest.class );
-	private static final String INFO_MSG = "Info Message";
+	private final Logger LOG = LoggerFactory.getLogger( LoggerConsoleTest.class );
+	private static final String INFO_MSG = "Info Console Message";
 	private static final String INFO_PARAM_NAME = "Parameter";
 	private static final Boolean INFO_PARAM_VALUE = true;
 	
 	
 	/***** BEFORE *****/
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		LoggerFactoryBuilder builder = new LoggerFactoryBuilder( "LOGGER_TEST" );
+	public static void init() throws Exception {
+		LoggerFactoryBuilder builder = new LoggerFactoryBuilder( "LOGGER_CONSOLE_TEST" );
 		builder.setConsoleAppender( true );
-		builder.setFileAppender( true );
 		LoggerFactory.build( builder );
 	}
 	
@@ -30,6 +30,13 @@ public final class LoggerSimpleTest {
 	@Test
 	public void infoWithParams() {
 		LOG.info( INFO_MSG, INFO_PARAM_NAME, INFO_PARAM_VALUE );
+	}
+	
+	
+	/***** AFTER *****/
+	@AfterClass
+	public static void end() throws Exception {
+		LoggerFactory.destroy();
 	}
 	
 

@@ -130,6 +130,14 @@ public final class LoggerFactory {
 		}
 	}
 	
+	public synchronized static void destroy() {
+		STATE = FactoryState.UNINITIALIZED;
+		ROLLING_FILE_APPENDER = null;
+		CONSOLE_APPENDER = null;
+		LEVEL = null;
+		CacheFactory.MANAGER.removeCache( CACHE_NAME );
+	}
+	
 	public static Logger getLogger( Class< ? > clazz ) {
 		if( STATE != FactoryState.SUCCESSFUL_INITIALIZATION )
 			throw new FactoryIsUninitializedException();
