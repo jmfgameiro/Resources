@@ -112,7 +112,9 @@ public final class LoggerFactory {
 					if( !builder.getCustomAppenders().isEmpty() ) {
 						CUSTOM_APPENDERS = new ArrayList< AppenderBase< ILoggingEvent > >();
 						for( AppenderBase< ILoggingEvent > appender : builder.getCustomAppenders() ) {
-							
+							appender.setContext( loggerContext );
+							appender.start();
+							CUSTOM_APPENDERS.add( appender );
 						}
 					}
 					
@@ -162,10 +164,18 @@ public final class LoggerFactory {
 			return log;
 		
 		ch.qos.logback.classic.Logger logger = ( ch.qos.logback.classic.Logger )org.slf4j.LoggerFactory.getLogger( clazz );
+		
+		//
 		if( ROLLING_FILE_APPENDER != null )
 			logger.addAppender( ROLLING_FILE_APPENDER );
 		if( CONSOLE_APPENDER != null )
 			logger.addAppender( CONSOLE_APPENDER );
+		if( CUSTOM_APPENDERS != null ) {
+			for( AppenderBase< ILoggingEvent > appender : CUSTOM_APPENDERS )
+				logger.addAppender( appender );
+		}
+		
+		//
 		logger.setLevel( LEVEL );
 		logger.setAdditive( false );
 		log = new Logger( generateCode(), logger, FORMATTER );
