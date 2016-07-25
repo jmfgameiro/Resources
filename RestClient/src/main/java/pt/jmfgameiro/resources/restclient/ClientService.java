@@ -3,6 +3,8 @@ package pt.jmfgameiro.resources.restclient;
 import java.net.URI;
 import java.util.Map;
 
+import javax.ws.rs.core.Response;
+
 public class ClientService {
 	
 	/***** CONSTANTS *****/
@@ -12,11 +14,11 @@ public class ClientService {
 	private final String service;
 	
 	
-	/*****  *****/
-	ClientService( String host, int port, String service ) {
+	/***** CONSTRUCTOR *****/
+	public ClientService( String host, int port, String service ) {
 		this.host = host;
 		this.port = port;
-		this.service = service + "/";
+		this.service = service;
 	}
 	
 	
@@ -24,10 +26,10 @@ public class ClientService {
 	/**
 	 * Call a DELETE service based on a path.
 	 * @param path
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	public final String delete( String path ) throws Exception {
+	public final Response delete( String path ) throws Exception {
 		return RestClientDeleteService.delete( new URI( scheme, null, host, port, service + path, null, null ) );
 	}
 	/**
@@ -44,10 +46,10 @@ public class ClientService {
 	 * Call a DELETE service, with query parameters, based on a path.
 	 * @param path
 	 * @param queryParams
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	public final String delete( String path, Map< String, Object > queryParams ) throws Exception {
+	public final Response delete( String path, Map< String, Object > queryParams ) throws Exception {
 		return RestClientDeleteService.delete( new URI( scheme, null, host, port, service + path, null, null ), queryParams );
 	}
 	/**
@@ -65,10 +67,10 @@ public class ClientService {
 	/**
 	 * Call a GET service based on a path.
 	 * @param path
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	public final String get( String path ) throws Exception {
+	public final Response get( String path ) throws Exception {
 		return RestClientGetService.get( new URI( scheme, null, host, port, service + path, null, null ) );
 	}
 	/**
@@ -85,10 +87,10 @@ public class ClientService {
 	 * Call a GET service, with query parameters, based on a path.
 	 * @param path
 	 * @param queryParams
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	public final String get( String path, Map< String, Object > queryParams ) throws Exception {
+	public final Response get( String path, Map< String, Object > queryParams ) throws Exception {
 		return RestClientGetService.get( new URI( scheme, null, host, port, service + path, null, null ), queryParams );
 	}
 	/**
@@ -107,10 +109,10 @@ public class ClientService {
 	 * Call a POST service based on a path.
 	 * @param path
 	 * @param entity
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	public final String post( String path, Object entity ) throws Exception {
+	public final Response post( String path, Object entity ) throws Exception {
 		return RestClientPostService.post( new URI( scheme, null, host, port, service + path, null, null ), entity );
 	}
 	/**
@@ -129,10 +131,10 @@ public class ClientService {
 	 * Call a PUT service based on a path.
 	 * @param path
 	 * @param entity
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	public final String put( String path, Object entity ) throws Exception {
+	public final Response put( String path, Object entity ) throws Exception {
 		return RestClientPutService.put( new URI( scheme, null, host, port, service + path, null, null ), entity );
 	}
 	/**

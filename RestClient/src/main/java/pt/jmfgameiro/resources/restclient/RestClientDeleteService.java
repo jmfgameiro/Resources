@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * @author Jo√£o Gameiro
+ * @author Jo„o Gameiro
  *
  */
 final class RestClientDeleteService {
@@ -20,10 +20,10 @@ final class RestClientDeleteService {
 	/**
 	 * Call a DELETE service based on a URI.
 	 * @param uri
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	static final String delete( URI uri ) throws Exception {
+	static final Response delete( URI uri ) throws Exception {
 		// Initialize the client object at null
 		Client client = null;
 		// Initialize the response object at null
@@ -35,9 +35,7 @@ final class RestClientDeleteService {
 			// Initialize the target
 			WebTarget target = client.target( uri );
 			// Make the GET request to the service and obtain the response
-			response = target.request().delete();
-			// Return the obtained response
-			return response.readEntity( String.class );
+			return target.request().delete();
 		}
 		finally {
 			// Close response
@@ -84,10 +82,10 @@ final class RestClientDeleteService {
 	 * Call a DELETE service, with query parameters, based on a URI.
 	 * @param uri
 	 * @param queryParams
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	static final String delete( URI uri, Map< String, Object > queryParams ) throws Exception {
+	static final Response delete( URI uri, Map< String, Object > queryParams ) throws Exception {
 		// Initialize the client object at null
 		Client client = null;
 		// Initialize the response object at null
@@ -102,9 +100,7 @@ final class RestClientDeleteService {
 			for( Entry< String, Object > entry : queryParams.entrySet() )
 				target.queryParam( entry.getKey(), entry.getValue() );
 			// Make the GET request to the service and obtain the response
-			response = target.request().delete();
-			// Return the obtained response
-			return response.readEntity( String.class );
+			return target.request().delete();
 		}
 		finally {
 			// Close response

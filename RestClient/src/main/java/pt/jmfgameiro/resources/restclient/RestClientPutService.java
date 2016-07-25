@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * @author Jo√£o Gameiro
+ * @author Jo„o Gameiro
  *
  */
 final class RestClientPutService {
@@ -21,10 +21,10 @@ final class RestClientPutService {
 	 * Call a PUT service based on a URI.
 	 * @param uri
 	 * @param entity
-	 * @return String
+	 * @return Response
 	 * @throws Exception
 	 */
-	static final String put( URI uri, Object entity ) throws Exception {
+	static final Response put( URI uri, Object entity ) throws Exception {
 		// Initialize the client object at null
 		Client client = null;
 		// Initialize the response object at null
@@ -36,9 +36,7 @@ final class RestClientPutService {
 			// Initialize the target
 			WebTarget target = client.target( uri );
 			// Make the GET request to the service and obtain the response
-			response = target.request().put( Entity.entity( entity, MediaType.APPLICATION_JSON ) );
-			// Return the obtained response
-			return response.readEntity( String.class );
+			return target.request().put( Entity.entity( entity, MediaType.APPLICATION_JSON ) );
 		}
 		finally {
 			// Close response
