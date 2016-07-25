@@ -14,7 +14,7 @@ import org.junit.Test;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import pt.jmfgameiro.resources.restclient.resources.ServiceGeneric;
+import pt.jmfgameiro.resources.restclient.resources.ServiceConstants;
 import pt.jmfgameiro.resources.restclient.resources.ServiceObject;
 import pt.jmfgameiro.resources.restclient.resources.ServicePut;
 
@@ -40,16 +40,16 @@ public class ClientPutServiceTest {
 	/***** TESTS *****/
 	@Test
 	public void put() throws Exception {
-		Response response = CLIENT.put( PUT_PATH, ServiceGeneric.SERVICE_OBJECT );
+		Response response = CLIENT.put( PUT_PATH, ServiceConstants.SERVICE_OBJECT );
 		assertEquals( Status.CREATED, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
-		assertEquals( ServiceObject.toJson( ServiceGeneric.SERVICE_OBJECT ), entity.getAsString() );
+		assertEquals( ServiceObject.toJson( ServiceConstants.SERVICE_OBJECT ), entity.getAsString() );
 	}
 	@Test
 	public void putWithClass() throws Exception {
-		ServiceObject response = CLIENT.put( PUT_PATH, ServiceGeneric.SERVICE_OBJECT, ServiceObject.class );
-		assertEquals( ServiceGeneric.SERVICE_OBJECT, response );
+		ServiceObject response = CLIENT.put( PUT_PATH, ServiceConstants.SERVICE_OBJECT, ServiceObject.class );
+		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	
 	

@@ -26,10 +26,10 @@ public final class ServiceDelete extends HttpServlet {
 			json = br.readLine();
 		
 		if( json == null || json.trim().equals( "" ) )
-			json = ServiceObject.toJson( ServiceGeneric.SERVICE_OBJECT );
+			json = ServiceObject.toJson( ServiceConstants.SERVICE_OBJECT );
 		
 		resp.setStatus( HttpStatus.ACCEPTED_202 );
-		resp.setContentType( ServiceGeneric.CONTENT_TYPE );
+		resp.setContentType( ServiceConstants.CONTENT_TYPE );
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue( resp.getOutputStream(), json );

@@ -3,7 +3,7 @@ package pt.jmfgameiro.resources.restclient.resources;
 import pt.jmfgameiro.resources.core.random.RandomNumber;
 import pt.jmfgameiro.resources.core.random.RandomString;
 
-public final class ServiceGeneric {
+public final class ServiceConstants {
 	
 	
 	/*****  *****/

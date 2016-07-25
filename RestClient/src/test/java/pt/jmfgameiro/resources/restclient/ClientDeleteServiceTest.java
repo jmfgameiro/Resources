@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import pt.jmfgameiro.resources.restclient.resources.ServiceDelete;
-import pt.jmfgameiro.resources.restclient.resources.ServiceGeneric;
+import pt.jmfgameiro.resources.restclient.resources.ServiceConstants;
 import pt.jmfgameiro.resources.restclient.resources.ServiceObject;
 
 public class ClientDeleteServiceTest {
@@ -44,25 +44,25 @@ public class ClientDeleteServiceTest {
 		assertEquals( Status.ACCEPTED, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
-		assertEquals( ServiceObject.toJson( ServiceGeneric.SERVICE_OBJECT ), entity.getAsString() );
+		assertEquals( ServiceObject.toJson( ServiceConstants.SERVICE_OBJECT ), entity.getAsString() );
 	}
 	@Test
 	public void deleteWithClass() throws Exception {
 		ServiceObject response = CLIENT.delete( DELETE_PATH, ServiceObject.class );
-		assertEquals( ServiceGeneric.SERVICE_OBJECT, response );
+		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	@Test
 	public void deleteQueryParameters() throws Exception {
-		Response response = CLIENT.delete( DELETE_PATH, ServiceObject.toQuery( ServiceGeneric.SERVICE_OBJECT ) );
+		Response response = CLIENT.delete( DELETE_PATH, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
 		assertEquals( Status.ACCEPTED, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
-		assertEquals( ServiceObject.toJson( ServiceGeneric.SERVICE_OBJECT ), entity.getAsString() );
+		assertEquals( ServiceObject.toJson( ServiceConstants.SERVICE_OBJECT ), entity.getAsString() );
 	}
 	@Test
 	public void deleteQueryParametersWithClass() throws Exception {
-		ServiceObject response = CLIENT.delete( DELETE_PATH, ServiceObject.class, ServiceObject.toQuery( ServiceGeneric.SERVICE_OBJECT ) );
-		assertEquals( ServiceGeneric.SERVICE_OBJECT, response );
+		ServiceObject response = CLIENT.delete( DELETE_PATH, ServiceObject.class, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
+		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	
 	

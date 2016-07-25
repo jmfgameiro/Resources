@@ -14,7 +14,7 @@ import org.junit.Test;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import pt.jmfgameiro.resources.restclient.resources.ServiceGeneric;
+import pt.jmfgameiro.resources.restclient.resources.ServiceConstants;
 import pt.jmfgameiro.resources.restclient.resources.ServiceGet;
 import pt.jmfgameiro.resources.restclient.resources.ServiceObject;
 
@@ -44,25 +44,25 @@ public class ClientGetServiceTest {
 		assertEquals( Status.OK, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
-		assertEquals( ServiceObject.toJson( ServiceGeneric.SERVICE_OBJECT ), entity.getAsString() );
+		assertEquals( ServiceObject.toJson( ServiceConstants.SERVICE_OBJECT ), entity.getAsString() );
 	}
 	@Test
 	public void getWithClass() throws Exception {
 		ServiceObject response = CLIENT.get( GET_PATH, ServiceObject.class );
-		assertEquals( ServiceGeneric.SERVICE_OBJECT, response );
+		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	@Test
 	public void getQueryParameters() throws Exception {
-		Response response = CLIENT.get( GET_PATH, ServiceObject.toQuery( ServiceGeneric.SERVICE_OBJECT ) );
+		Response response = CLIENT.get( GET_PATH, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
 		assertEquals( Status.OK, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
-		assertEquals( ServiceObject.toJson( ServiceGeneric.SERVICE_OBJECT ), entity.getAsString() );
+		assertEquals( ServiceObject.toJson( ServiceConstants.SERVICE_OBJECT ), entity.getAsString() );
 	}
 	@Test
 	public void getQueryParametersWithClass() throws Exception {
-		ServiceObject response = CLIENT.get( GET_PATH, ServiceObject.class, ServiceObject.toQuery( ServiceGeneric.SERVICE_OBJECT ) );
-		assertEquals( ServiceGeneric.SERVICE_OBJECT, response );
+		ServiceObject response = CLIENT.get( GET_PATH, ServiceObject.class, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
+		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	
 	
