@@ -21,18 +21,15 @@ import pt.jmfgameiro.resources.restclient.resources.ServicePost;
 public class ClientPostServiceTest {
 	
 	/***** CONSTANTS *****/
-	private static final int PORT = 9000;
-	private static final String SERVICE = "/test";
-	private static final Server SERVER = new Server( PORT );
-	private static final String POST_PATH = "/post";
-	private static final ClientService CLIENT = new ClientService( "localhost", PORT , SERVICE );
+	private static final Server SERVER = new Server( ServiceConstants.PORT );
+	private static final ClientService CLIENT = new ClientService( "localhost", ServiceConstants.PORT , ServiceConstants.SERVICE );
 	
 	
 	/***** BEFORE *****/
 	@BeforeClass
 	public static void before() throws Exception {
-		ServletContextHandler handler = new ServletContextHandler( SERVER, SERVICE );
-		handler.addServlet( ServicePost.class, POST_PATH );
+		ServletContextHandler handler = new ServletContextHandler( SERVER, ServiceConstants.SERVICE );
+		handler.addServlet( ServicePost.class, ServiceConstants.POST_PATH );
 		SERVER.start();
 	}
 	
@@ -40,7 +37,7 @@ public class ClientPostServiceTest {
 	/***** TESTS *****/
 	@Test
 	public void post() throws Exception {
-		Response response = CLIENT.post( POST_PATH, ServiceConstants.SERVICE_OBJECT );
+		Response response = CLIENT.post( ServiceConstants.POST_PATH, ServiceConstants.SERVICE_OBJECT );
 		assertEquals( Status.ACCEPTED, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
@@ -48,7 +45,7 @@ public class ClientPostServiceTest {
 	}
 	@Test
 	public void postWithClass() throws Exception {
-		ServiceObject response = CLIENT.post( POST_PATH, ServiceConstants.SERVICE_OBJECT, ServiceObject.class );
+		ServiceObject response = CLIENT.post( ServiceConstants.POST_PATH, ServiceConstants.SERVICE_OBJECT, ServiceObject.class );
 		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	

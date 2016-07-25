@@ -21,18 +21,15 @@ import pt.jmfgameiro.resources.restclient.resources.ServicePut;
 public class ClientPutServiceTest {
 	
 	/***** CONSTANTS *****/
-	private static final int PORT = 9000;
-	private static final String SERVICE = "/test";
-	private static final Server SERVER = new Server( PORT );
-	private static final String PUT_PATH = "/put";
-	private static final ClientService CLIENT = new ClientService( "localhost", PORT , SERVICE );
+	private static final Server SERVER = new Server( ServiceConstants.PORT );
+	private static final ClientService CLIENT = new ClientService( "localhost", ServiceConstants.PORT , ServiceConstants.SERVICE );
 	
 	
 	/***** BEFORE *****/
 	@BeforeClass
 	public static void before() throws Exception {
-		ServletContextHandler handler = new ServletContextHandler( SERVER, SERVICE );
-		handler.addServlet( ServicePut.class, PUT_PATH );
+		ServletContextHandler handler = new ServletContextHandler( SERVER, ServiceConstants.SERVICE );
+		handler.addServlet( ServicePut.class, ServiceConstants.PUT_PATH );
 		SERVER.start();
 	}
 	
@@ -40,7 +37,7 @@ public class ClientPutServiceTest {
 	/***** TESTS *****/
 	@Test
 	public void put() throws Exception {
-		Response response = CLIENT.put( PUT_PATH, ServiceConstants.SERVICE_OBJECT );
+		Response response = CLIENT.put( ServiceConstants.PUT_PATH, ServiceConstants.SERVICE_OBJECT );
 		assertEquals( Status.CREATED, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
@@ -48,7 +45,7 @@ public class ClientPutServiceTest {
 	}
 	@Test
 	public void putWithClass() throws Exception {
-		ServiceObject response = CLIENT.put( PUT_PATH, ServiceConstants.SERVICE_OBJECT, ServiceObject.class );
+		ServiceObject response = CLIENT.put( ServiceConstants.PUT_PATH, ServiceConstants.SERVICE_OBJECT, ServiceObject.class );
 		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	

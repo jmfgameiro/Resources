@@ -21,18 +21,15 @@ import pt.jmfgameiro.resources.restclient.resources.ServiceObject;
 public class ClientGetServiceTest {
 	
 	/***** CONSTANTS *****/
-	private static final int PORT = 9000;
-	private static final String SERVICE = "/test";
-	private static final Server SERVER = new Server( PORT );
-	private static final String GET_PATH = "/get";
-	private static final ClientService CLIENT = new ClientService( "localhost", PORT , SERVICE );
+	private static final Server SERVER = new Server( ServiceConstants.PORT );
+	private static final ClientService CLIENT = new ClientService( "localhost", ServiceConstants.PORT , ServiceConstants.SERVICE );
 	
 	
 	/***** BEFORE *****/
 	@BeforeClass
 	public static void before() throws Exception {
-		ServletContextHandler handler = new ServletContextHandler( SERVER, SERVICE );
-		handler.addServlet( ServiceGet.class, GET_PATH );
+		ServletContextHandler handler = new ServletContextHandler( SERVER, ServiceConstants.SERVICE );
+		handler.addServlet( ServiceGet.class, ServiceConstants.GET_PATH );
 		SERVER.start();
 	}
 	
@@ -40,7 +37,7 @@ public class ClientGetServiceTest {
 	/***** TESTS *****/
 	@Test
 	public void get() throws Exception {
-		Response response = CLIENT.get( GET_PATH );
+		Response response = CLIENT.get( ServiceConstants.GET_PATH );
 		assertEquals( Status.OK, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
@@ -48,12 +45,12 @@ public class ClientGetServiceTest {
 	}
 	@Test
 	public void getWithClass() throws Exception {
-		ServiceObject response = CLIENT.get( GET_PATH, ServiceObject.class );
+		ServiceObject response = CLIENT.get( ServiceConstants.GET_PATH, ServiceObject.class );
 		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	@Test
 	public void getQueryParameters() throws Exception {
-		Response response = CLIENT.get( GET_PATH, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
+		Response response = CLIENT.get( ServiceConstants.GET_PATH, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
 		assertEquals( Status.OK, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
@@ -61,7 +58,7 @@ public class ClientGetServiceTest {
 	}
 	@Test
 	public void getQueryParametersWithClass() throws Exception {
-		ServiceObject response = CLIENT.get( GET_PATH, ServiceObject.class, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
+		ServiceObject response = CLIENT.get( ServiceConstants.GET_PATH, ServiceObject.class, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
 		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	

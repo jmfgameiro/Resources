@@ -21,18 +21,15 @@ import pt.jmfgameiro.resources.restclient.resources.ServiceObject;
 public class ClientDeleteServiceTest {
 	
 	/***** CONSTANTS *****/
-	private static final int PORT = 9000;
-	private static final String SERVICE = "/test";
-	private static final Server SERVER = new Server( PORT );
-	private static final String DELETE_PATH = "/delete";
-	private static final ClientService CLIENT = new ClientService( "localhost", PORT , SERVICE );
+	private static final Server SERVER = new Server( ServiceConstants.PORT );
+	private static final ClientService CLIENT = new ClientService( "localhost", ServiceConstants.PORT , ServiceConstants.SERVICE );
 	
 	
 	/***** BEFORE *****/
 	@BeforeClass
 	public static void before() throws Exception {
-		ServletContextHandler handler = new ServletContextHandler( SERVER, SERVICE );
-		handler.addServlet( ServiceDelete.class, DELETE_PATH );
+		ServletContextHandler handler = new ServletContextHandler( SERVER, ServiceConstants.SERVICE );
+		handler.addServlet( ServiceDelete.class, ServiceConstants.DELETE_PATH );
 		SERVER.start();
 	}
 	
@@ -40,7 +37,7 @@ public class ClientDeleteServiceTest {
 	/***** TESTS *****/
 	@Test
 	public void delete() throws Exception {
-		Response response = CLIENT.delete( DELETE_PATH );
+		Response response = CLIENT.delete( ServiceConstants.DELETE_PATH );
 		assertEquals( Status.ACCEPTED, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
@@ -48,12 +45,12 @@ public class ClientDeleteServiceTest {
 	}
 	@Test
 	public void deleteWithClass() throws Exception {
-		ServiceObject response = CLIENT.delete( DELETE_PATH, ServiceObject.class );
+		ServiceObject response = CLIENT.delete( ServiceConstants.DELETE_PATH, ServiceObject.class );
 		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	@Test
 	public void deleteQueryParameters() throws Exception {
-		Response response = CLIENT.delete( DELETE_PATH, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
+		Response response = CLIENT.delete( ServiceConstants.DELETE_PATH, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
 		assertEquals( Status.ACCEPTED, ( Status )response.getStatusInfo() );
 		
 		JsonElement entity = new Gson().fromJson( response.readEntity( String.class ), JsonElement.class );
@@ -61,7 +58,7 @@ public class ClientDeleteServiceTest {
 	}
 	@Test
 	public void deleteQueryParametersWithClass() throws Exception {
-		ServiceObject response = CLIENT.delete( DELETE_PATH, ServiceObject.class, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
+		ServiceObject response = CLIENT.delete( ServiceConstants.DELETE_PATH, ServiceObject.class, ServiceObject.toQuery( ServiceConstants.SERVICE_OBJECT ) );
 		assertEquals( ServiceConstants.SERVICE_OBJECT, response );
 	}
 	
