@@ -8,7 +8,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-public class LocalDateTimeJsonSerializer implements JsonSerializer< LocalDateTime > {
+public final class LocalDateTimeJsonSerializer implements JsonSerializer< LocalDateTime > {
 	
 	
 	@Override

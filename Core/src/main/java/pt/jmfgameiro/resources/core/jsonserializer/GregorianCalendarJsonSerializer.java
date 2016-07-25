@@ -9,7 +9,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-public class GregorianCalendarJsonSerializer implements JsonSerializer< Calendar > {
+public final class GregorianCalendarJsonSerializer implements JsonSerializer< Calendar > {
 	
 	
 	@Override
