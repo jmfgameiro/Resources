@@ -27,15 +27,11 @@ public final class LoggerMongodbAppenderTest {
 	/***** TESTS *****/
 	@Test
 	public void info() {
-		System.out.println( "Before Insert" );
 		LOG.info( INFO_MSG );
-		System.out.println( "After Insert" );
 	}
 	@Test
 	public void infoWithParams() {
-		System.out.println( "Before Insert" );
 		LOG.info( INFO_MSG, INFO_PARAM_NAME, INFO_PARAM_VALUE );
-		System.out.println( "After Insert" );
 	}
 	
 	

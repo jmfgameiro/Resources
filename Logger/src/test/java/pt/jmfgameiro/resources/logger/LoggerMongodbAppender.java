@@ -43,7 +43,8 @@ final class LoggerMongodbAppender< E > extends AppenderBase< E > {
 		}
 		finally {
 			// Close MongoDB Connection
-			client.close();
+			if( client != null )
+				client.close();
 		}
 	}
 	
