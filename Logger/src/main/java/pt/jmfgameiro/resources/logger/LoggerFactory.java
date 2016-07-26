@@ -29,12 +29,6 @@ import pt.jmfgameiro.resources.ehcache.CacheFactory;
 public final class LoggerFactory {
 	
 	/***** CONSTANTS *****/
-	private static FactoryState STATE = FactoryState.UNINITIALIZED;
-	private static RollingFileAppender< ILoggingEvent > ROLLING_FILE_APPENDER;
-	private static ConsoleAppender< ILoggingEvent > CONSOLE_APPENDER;
-	private static List< AppenderBase< ILoggingEvent > > CUSTOM_APPENDERS;
-	private static Level LEVEL;
-	
 	private static final LogFormatter FORMATTER = new LogFormatter();
 	private static final Random RANDOM = new Random();
 	private static final String TIME_POLICY_DAILY = ".%d{yyyy.MM.dd}.";
@@ -42,6 +36,14 @@ public final class LoggerFactory {
 	private static final String FILE_APPENDER_NAME = "LOGFILE";
 	private static final String CONSOLE_APPENDER_NAME = "STDOUT";
 	private static final String CACHE_NAME = "LOGGER_CACHE";
+	
+	
+	/***** VARIABLES *****/
+	private static FactoryState STATE = FactoryState.UNINITIALIZED;
+	private static RollingFileAppender< ILoggingEvent > ROLLING_FILE_APPENDER;
+	private static ConsoleAppender< ILoggingEvent > CONSOLE_APPENDER;
+	private static List< AppenderBase< ILoggingEvent > > CUSTOM_APPENDERS;
+	private static Level LEVEL;
 	
 	
 	/***** PUBLIC *****/
