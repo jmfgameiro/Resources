@@ -161,9 +161,8 @@ public final class LoggerFactory {
 		
 		Cache< Long, Logger > cacheLogger = CacheFactory.MANAGER.getCache( CACHE_NAME, Long.class, Logger.class );
 		Thread thread = Thread.currentThread();
-		Logger log = cacheLogger.get( thread.getId() );
-		if( log != null )
-			return log;
+		if( cacheLogger.containsKey( thread.getId() ) )
+			return cacheLogger.get( thread.getId() );
 		
 		ch.qos.logback.classic.Logger logger = ( ch.qos.logback.classic.Logger )org.slf4j.LoggerFactory.getLogger( clazz );
 		
@@ -180,7 +179,7 @@ public final class LoggerFactory {
 		//
 		logger.setLevel( LEVEL );
 		logger.setAdditive( false );
-		log = new Logger( generateCode(), logger, FORMATTER );
+		Logger log = new Logger( generateCode(), logger, FORMATTER );
 		cacheLogger.put( thread.getId(), log );
 		return log;
 	}

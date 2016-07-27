@@ -4,24 +4,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import org.ehcache.config.units.MemoryUnit;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
 import pt.jmfgameiro.resources.core.factory.FactoryTimePolicy;
 import pt.jmfgameiro.resources.core.property.Property;
+import pt.jmfgameiro.resources.ehcache.CacheFactoryBuilder;
 
-public final class LoggerFactoryBuilder {
+public final class LoggerFactoryBuilder extends CacheFactoryBuilder {
 	
 	/***** CONSTANTS *****/
 	private final String logName;
-	private final Long cacheSizeValue;
-	private final MemoryUnit cacheSizeUnit;
-	private final Long cacheExpirationValue;
-	private final TimeUnit cacheExpirationUnit;
 	
 	
 	/***** VARIABLES *****/
@@ -41,33 +35,22 @@ public final class LoggerFactoryBuilder {
 	
 	/***** CONSTRUCTOR *****/
 	public LoggerFactoryBuilder( String logName ) {
+		super();
 		String filePath = this.getClass().getResource( "/" ).getPath();
 		this.filePath = Paths.get( System.getProperty( "os.name" ).contains( "indow" ) ? filePath.substring( 1 ): filePath );
 		this.logName = logName;
-		this.cacheSizeValue = 5L;
-		this.cacheSizeUnit = MemoryUnit.MB;
-		this.cacheExpirationValue = 10L;
-		this.cacheExpirationUnit = TimeUnit.MINUTES;
 	}
 	public LoggerFactoryBuilder( String logName, Long cacheSizeValue, String cacheSizeUnit, Long cacheExpirationValue, String cacheExpirationUnit ) {
+		super( cacheSizeValue, cacheSizeUnit, cacheExpirationValue, cacheExpirationUnit );
 		String filePath = this.getClass().getResource( "/" ).getPath();
 		this.filePath = Paths.get( System.getProperty( "os.name" ).contains( "indow" ) ? filePath.substring( 1 ): filePath );
 		this.logName = logName;
-		validateCache( cacheSizeValue, cacheSizeUnit, cacheExpirationValue, cacheExpirationUnit );
-		this.cacheSizeValue = cacheSizeValue;
-		this.cacheSizeUnit = MemoryUnit.valueOf( cacheSizeUnit );
-		this.cacheExpirationValue = cacheExpirationValue;
-		this.cacheExpirationUnit = TimeUnit.valueOf( cacheExpirationUnit );
 	}
 	public LoggerFactoryBuilder( String logName, Property< Long > cacheSizeValueProperty, Property< String > cacheSizeUnitProperty, Property< Long > cacheExpirationValueProperty, Property< String > cacheExpirationUnitProperty ) {
+		super( cacheSizeValueProperty, cacheSizeUnitProperty, cacheExpirationValueProperty, cacheExpirationUnitProperty );
 		String filePath = this.getClass().getResource( "/" ).getPath();
 		this.filePath = Paths.get( System.getProperty( "os.name" ).contains( "indow" ) ? filePath.substring( 1 ): filePath );
 		this.logName = logName;
-		validateCache( cacheSizeValueProperty, cacheSizeUnitProperty, cacheExpirationValueProperty, cacheExpirationUnitProperty );
-		this.cacheSizeValue = cacheSizeValueProperty.getProperty();
-		this.cacheSizeUnit = MemoryUnit.valueOf( cacheSizeUnitProperty.getProperty() );
-		this.cacheExpirationValue = cacheExpirationValueProperty.getProperty();
-		this.cacheExpirationUnit = TimeUnit.valueOf( cacheExpirationUnitProperty.getProperty() );
 	}
 	
 	
@@ -82,52 +65,9 @@ public final class LoggerFactoryBuilder {
 	}
 	
 	
-	/***** PRIVATE *****/
-	private void validateCache( Long cacheSizeValue, String cacheSizeUnit, Long cacheExpirationValue, String cacheExpirationUnit ) {
-		if( cacheSizeValue == null )
-			throw new IllegalArgumentException( "The cacheSizeValue cannot be null" );
-		if( cacheSizeValue <= 0 )
-			throw new IllegalArgumentException( "The cacheSizeValue cannot be less than zero" );
-		if( cacheSizeUnit == null )
-			throw new IllegalArgumentException( "The cacheSizeUnit cannot be null" );
-		if( cacheExpirationValue == null )
-			throw new IllegalArgumentException( "The cacheExpirationValue cannot be null" );
-		if( cacheExpirationValue <= 0 )
-			throw new IllegalArgumentException( "The cacheExpirationValue cannot be less than zero" );
-		if( cacheExpirationUnit == null )
-			throw new IllegalArgumentException( "The cacheExpirationUnit cannot be null" );
-	}
-	private void validateCache( Property< Long > cacheSizeValueProperty, Property< String > cacheSizeUnitProperty, Property< Long > cacheExpirationValueProperty, Property< String > cacheExpirationUnitProperty ) {
-		if( cacheSizeValueProperty == null )
-			throw new IllegalArgumentException( "The cacheSizeValueProperty cannot be null" );
-		if( cacheSizeValueProperty.getProperty() <= 0 )
-			throw new IllegalArgumentException( "The cacheSizeValueProperty cannot be less than zero" );
-		if( cacheSizeUnitProperty == null )
-			throw new IllegalArgumentException( "The cacheSizeUnitProperty cannot be null" );
-		if( cacheExpirationValueProperty == null )
-			throw new IllegalArgumentException( "The cacheExpirationValueProperty cannot be null" );
-		if( cacheExpirationValueProperty.getProperty() <= 0 )
-			throw new IllegalArgumentException( "The cacheExpirationValueProperty cannot be less than zero" );
-		if( cacheExpirationUnitProperty == null )
-			throw new IllegalArgumentException( "The cacheExpirationUnitProperty cannot be null" );
-	}
-	
-	
 	/***** GETTERS/SETTERS *****/
 	public String getLogName() {
 		return logName;
-	}
-	public Long getCacheSizeValue() {
-		return cacheSizeValue;
-	}
-	public MemoryUnit getCacheSizeUnit() {
-		return cacheSizeUnit;
-	}
-	public Long getCacheExpirationValue() {
-		return cacheExpirationValue;
-	}
-	public TimeUnit getCacheExpirationUnit() {
-		return cacheExpirationUnit;
 	}
 	
 	// Pattern Layout Encoder

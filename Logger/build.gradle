@@ -24,7 +24,6 @@ repositories {
 //
 dependencies {
 	compile 	group: 'ch.qos.logback', 			name: 'logback-classic',	version: '1.1.7'
-	compile		group: 'pt.jmfgameiro.resources',	name: 'Core',				version: '1.0.0.Final'
 	compile		group: 'pt.jmfgameiro.resources',	name: 'Ehcache',			version: '1.0.0.Final'
 	
     testCompile group: 'junit',						name: 'junit',				version: '4.+'
