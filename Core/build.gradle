@@ -24,9 +24,9 @@ repositories {
 //
 dependencies {
 	compile 	group: 'com.google.code.gson', 				name: 'gson',		version: '2.7'
-	compile 	group: 'pt.jmfgameiro.generator.text',		name: 'Text',		version: '1.0.0.Final'
-	compile 	group: 'pt.jmfgameiro.generator.number',	name: 'Numeric',	version: '1.0.0.Final'
 	
+	testCompile group: 'pt.jmfgameiro.generator.text',		name: 'Text',		version: '1.0.0.Final'
+	testCompile group: 'pt.jmfgameiro.generator.number',	name: 'Numeric',	version: '1.0.0.Final'
     testCompile group: 'junit',								name: 'junit',		version: '4.+'
 }
 
