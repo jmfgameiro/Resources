@@ -4,6 +4,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import pt.jmfgameiro.resources.core.logger.Logger;
+import pt.jmfgameiro.resources.core.logger.LoggerFactory;
 import pt.jmfgameiro.resources.core.validator.StringValidator;
 
 /**
@@ -16,6 +18,7 @@ public final class NamingProperty< T > implements Property< T > {
 	/***** CONSTANTS *****/
 	private final String propertyName;
 	private final T property;
+	private final Logger LOG = LoggerFactory.getLogger( NamingProperty.class );
 	
 	
 	/***** CONSTRUCTOR *****/
@@ -44,7 +47,9 @@ public final class NamingProperty< T > implements Property< T > {
 			try {
 				if( context != null )
 					context.close();
-			} catch( NamingException e ) {}
+			} catch( NamingException e ) {
+				LOG.logThrowableAsDebug( "Unable to close context!", e );
+			}
 		}
 	}
 	
