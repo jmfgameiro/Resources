@@ -10,11 +10,10 @@ import javassist.CtField;
 import javassist.CtNewMethod;
 import javassist.Loader;
 import javassist.NotFoundException;
+import pt.jmfgameiro.generator.text.Text;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import pt.jmfgameiro.resources.core.random.RandomString;
 
 public class HelloWorldTest {
 	
@@ -22,7 +21,7 @@ public class HelloWorldTest {
 	private static final ClassPool POOL = ClassPool.getDefault();
 	private static final Loader LOADER = new Loader( POOL );
 	private static final String CLASS_NAME = "HelloWorld";
-	private static final String CLASS_FIELD_NAME_VALUE = RandomString.randomName();
+	private static final String CLASS_FIELD_NAME_VALUE = Text.name();
 	
 	
 	/***** BEFORE *****/

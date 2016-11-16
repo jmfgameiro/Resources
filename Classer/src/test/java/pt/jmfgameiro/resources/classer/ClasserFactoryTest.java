@@ -10,12 +10,12 @@ import javassist.CannotCompileException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import pt.jmfgameiro.generator.text.Text;
 import pt.jmfgameiro.resources.classer.Classer;
 import pt.jmfgameiro.resources.classer.factory.ClasserBuilder;
 import pt.jmfgameiro.resources.classer.factory.ClasserBuilderField;
 import pt.jmfgameiro.resources.classer.factory.ClasserBuilderMethod;
 import pt.jmfgameiro.resources.classer.factory.ClasserFactory;
-import pt.jmfgameiro.resources.core.random.RandomString;
 
 public class ClasserFactoryTest {
 	
@@ -23,16 +23,16 @@ public class ClasserFactoryTest {
 	private static final String CLASS_NAME = "FactoryTest";
 	// FIELD TEST
 	private static final String FIELD_NAME = "name";
-	private static final String FIELD_VALUE = RandomString.randomName();
-	private static final String FIELD_VALUE2 = RandomString.randomName();
+	private static final String FIELD_VALUE = Text.name();
+	private static final String FIELD_VALUE2 = Text.name();
 	// METHOD TEST
 	private static final String METHOD_NAME = "returnConstant";
-	private static final String METHOD_VALUE = RandomString.randomName();
+	private static final String METHOD_VALUE = Text.name();
 	private static final String METHOD_BODY = "return \"" + METHOD_VALUE + "\";";
 	// METHOD PARAMETER TEST
 	private static final String METHOD2_NAME = "returnParameter";
 	private static final String METHOD2_PARAM_NAME = "myParameter";
-	private static final String METHOD2_VALUE = RandomString.randomName();
+	private static final String METHOD2_VALUE = Text.name();
 	private static final String METHOD2_BODY = "return " + METHOD2_PARAM_NAME + ";";
 	
 	
