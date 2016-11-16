@@ -1,10 +1,9 @@
 package pt.jmfgameiro.resources.restclient.resources;
 
-import pt.jmfgameiro.resources.core.random.RandomNumber;
-import pt.jmfgameiro.resources.core.random.RandomString;
+import pt.jmfgameiro.generator.number.DoubleRandomizer;
+import pt.jmfgameiro.generator.text.Text;
 
 public final class ServiceConstants {
-	
 	
 	/***** CONSTANTS *****/
 	public static final int PORT = 9000;
@@ -20,7 +19,11 @@ public final class ServiceConstants {
 	
 	public static final String CONTENT_TYPE = "application/json";
 	
-	public static final ServiceObject SERVICE_OBJECT = new ServiceObject( 42L, RandomString.randomName(), RandomNumber.randomDouble( 10.0, 50.0 ) );
+	public static final long ID_VALUE = 42L;
+	public static final double MIN_RAND = 10.0;
+	public static final double MAX_RAND = 10.0;
+	
+	public static final ServiceObject SERVICE_OBJECT = new ServiceObject( ID_VALUE, Text.name(), DoubleRandomizer.random( MIN_RAND, MAX_RAND ) );
 	
 	
 }
