@@ -7,12 +7,19 @@ import org.junit.Test;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class ByteArrayJsonSerializerTest {
 	
 	/***** CONSTANTS *****/
 	private static final byte[] MEGABYTES = new byte[ 1_500_000 ];
+	private static final String MEGABYTES_RESULT = "\"1.43 MB\"";
 	private static final byte[] KILOBYTES = new byte[ 1_500 ];
+	private static final String KILOBYTES_RESULT = "\"1.46 KB\"";
 	private static final byte[] BYTES = new byte[ 500 ];
+	private static final String BYTES_RESULT = "\"500 B\"";
 	private static final Gson GSONFORMATTER;
 	
 	
@@ -25,22 +32,31 @@ public final class ByteArrayJsonSerializerTest {
 	
 	
 	/***** TESTS *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void megaBytesTest() {
 		String megaBytesStr = GSONFORMATTER.toJson( MEGABYTES );
-		assertEquals( megaBytesStr, "\"1.43 MB\"" );
+		assertEquals( megaBytesStr, MEGABYTES_RESULT );
 		System.out.println( megaBytesStr );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void kiloBytesTest() {
 		String kiloBytesStr = GSONFORMATTER.toJson( KILOBYTES );
-		assertEquals( kiloBytesStr, "\"1.46 KB\"" );
+		assertEquals( kiloBytesStr, KILOBYTES_RESULT );
 		System.out.println( kiloBytesStr );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void bytesTest() {
 		String bytesStr = GSONFORMATTER.toJson( BYTES );
-		assertEquals( bytesStr, "\"500 B\"" );
+		assertEquals( bytesStr, BYTES_RESULT );
 		System.out.println( bytesStr );
 	}
 	

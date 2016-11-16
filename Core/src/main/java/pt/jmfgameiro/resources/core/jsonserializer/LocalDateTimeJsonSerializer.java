@@ -8,11 +8,19 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class LocalDateTimeJsonSerializer implements JsonSerializer< LocalDateTime > {
 	
 	
+	/***** PUBLIC *****/
+	/* (non-Javadoc)
+	 * @see com.google.gson.JsonSerializer#serialize(java.lang.Object, java.lang.reflect.Type, com.google.gson.JsonSerializationContext)
+	 */
 	@Override
-	public JsonElement serialize( LocalDateTime localDateTime, Type typeOfSrc, JsonSerializationContext context) {
+	public final JsonElement serialize( LocalDateTime localDateTime, Type typeOfSrc, JsonSerializationContext context) {
 		return new JsonPrimitive( localDateTime.toString() );
 	}
 	

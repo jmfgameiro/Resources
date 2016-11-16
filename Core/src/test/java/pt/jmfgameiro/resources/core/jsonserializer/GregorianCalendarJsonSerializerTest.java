@@ -9,6 +9,10 @@ import org.junit.Test;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class GregorianCalendarJsonSerializerTest {
 	
 	/***** CONSTANTS *****/
@@ -24,6 +28,9 @@ public final class GregorianCalendarJsonSerializerTest {
 	
 	
 	/***** TESTS *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void test() {
 		Calendar calendar = Calendar.getInstance();

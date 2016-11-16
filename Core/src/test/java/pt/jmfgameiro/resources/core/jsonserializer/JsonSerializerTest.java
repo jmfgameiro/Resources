@@ -7,6 +7,10 @@ import org.junit.Test;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class JsonSerializerTest {
 	
 	/***** CONSTANTS *****/
@@ -22,6 +26,9 @@ public final class JsonSerializerTest {
 	
 	
 	/***** TEST *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void test() {
 		String nullStr = GSONFORMATTER.toJson( null );

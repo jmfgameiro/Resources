@@ -7,6 +7,10 @@ import javax.naming.Context;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class NamingPropertyTest {
 	
 	/***** CONSTANTS *****/
@@ -18,6 +22,9 @@ public final class NamingPropertyTest {
 	
 	
 	/***** BEFORE *****/
+	/**
+	 * 
+	 */
 	@Before
 	public void init() {
 		// References: http://en.newinstance.it/2009/03/27/mocking-jndi/
@@ -27,6 +34,9 @@ public final class NamingPropertyTest {
 	
 	
 	/***** TEST *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void test() {
 		NamingProperty< String > test = new NamingProperty<String>( TESTBINDNAME );

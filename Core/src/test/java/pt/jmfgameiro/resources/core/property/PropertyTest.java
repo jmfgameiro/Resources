@@ -7,6 +7,10 @@ import javax.naming.Context;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class PropertyTest {
 	
 	/***** CONSTANTS *****/
@@ -21,6 +25,9 @@ public final class PropertyTest {
 	
 	
 	/***** BEFORE *****/
+	/**
+	 * 
+	 */
 	@Before
 	public void init() {
 		// References: http://en.newinstance.it/2009/03/27/mocking-jndi/
@@ -30,6 +37,9 @@ public final class PropertyTest {
 	
 	
 	/***** TEST *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void systemPropertyTest() {
 		Property< String > javaVersion = new SystemProperty< String >( SYSTEM_PRP );
@@ -37,6 +47,9 @@ public final class PropertyTest {
 		System.out.println( SYSTEM_MSG + javaVersion.getProperty() );
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void namingPropertyTest() {
 		NamingProperty< String > test = new NamingProperty<String>( NAMING_NAME );

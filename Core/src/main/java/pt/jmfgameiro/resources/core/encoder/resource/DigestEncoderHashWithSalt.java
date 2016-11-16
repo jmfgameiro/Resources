@@ -1,5 +1,9 @@
 package pt.jmfgameiro.resources.core.encoder.resource;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class DigestEncoderHashWithSalt {
 	
 	/***** CONSTANTS *****/
@@ -8,6 +12,10 @@ public final class DigestEncoderHashWithSalt {
 	
 	
 	/***** CONSTRUCTOR *****/
+	/**
+	 * @param hash
+	 * @param salt
+	 */
 	public DigestEncoderHashWithSalt( String hash, String salt ) {
 		this.hash = hash;
 		this.salt = salt;
@@ -15,10 +23,16 @@ public final class DigestEncoderHashWithSalt {
 	
 	
 	/***** GET *****/
-	public String getHash() {
+	/**
+	 * @return
+	 */
+	public final String getHash() {
 		return hash;
 	}
-	public String getSalt() {
+	/**
+	 * @return
+	 */
+	public final String getSalt() {
 		return salt;
 	}
 	

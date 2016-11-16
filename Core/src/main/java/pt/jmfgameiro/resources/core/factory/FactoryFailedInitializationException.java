@@ -1,8 +1,15 @@
 package pt.jmfgameiro.resources.core.factory;
 
-public class FactoryFailedInitializationException extends RuntimeException {
+/**
+ * @author João Gameiro
+ *
+ */
+public final class FactoryFailedInitializationException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * @param cause
+	 */
 	public FactoryFailedInitializationException( Throwable cause ) {
 		super( cause );
 	}

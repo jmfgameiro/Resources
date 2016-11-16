@@ -1,7 +1,10 @@
 package pt.jmfgameiro.resources.core.encoder;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public enum DigestEncoderAlgorithm {
-	
 	MD2( "MD2" ),
 	MD5( "MD5" ),
 	SHA( "SHA-1" ),
@@ -15,14 +18,21 @@ public enum DigestEncoderAlgorithm {
 	
 	
 	/***** CONSTRUCTOR *****/
+	/**
+	 * @param name
+	 */
 	private DigestEncoderAlgorithm( String name ) {
 		this.name = name;
 	}
 	
 	
 	/***** GETTER *****/
-	public String getName() {
+	/**
+	 * @return
+	 */
+	public final String getName() {
 		return this.name;
 	}
+	
 	
 }

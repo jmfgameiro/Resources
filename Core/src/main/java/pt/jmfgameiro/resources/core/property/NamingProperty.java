@@ -4,6 +4,13 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import pt.jmfgameiro.resources.core.validator.StringValidator;
+
+/**
+ * @author João Gameiro
+ *
+ * @param <T>
+ */
 public final class NamingProperty< T > implements Property< T > {
 	
 	/***** CONSTANTS *****/
@@ -12,9 +19,13 @@ public final class NamingProperty< T > implements Property< T > {
 	
 	
 	/***** CONSTRUCTOR *****/
+	/**
+	 * @param propertyName
+	 * @throws NamingException 
+	 */
 	@SuppressWarnings( "unchecked" )
 	public NamingProperty( String propertyName ) {
-		if( propertyName == null || propertyName.trim().equals( "" ) )
+		if( StringValidator.isNullOrEmpty( propertyName ) )
 			throw new IllegalArgumentException( "The propertyName cannot be null or empty." );
 		
 		this.propertyName = propertyName;
@@ -25,31 +36,30 @@ public final class NamingProperty< T > implements Property< T > {
 			Object object = context.lookup( propertyName );
 			if( object == null )
 				throw new IllegalArgumentException( "There is no JNDI property with name: " + propertyName + "." );
-			else {
-				try {
-					this.property = ( T )object;
-				}
-				catch( ClassCastException cce ) {
-					throw new IllegalArgumentException( "The property is not of the type provided." );
-				}
-			}
-		}
-		catch( NamingException ne ) {
-			throw new IllegalArgumentException( "There was an NamingException while getting the JNDI property: " + propertyName + ". Exception: " + ne.getMessage() );
-		}
-		finally {
+			else
+				this.property = ( T )object;
+		} catch( ClassCastException | NamingException ex ) {
+			throw new IllegalArgumentException( "There was a problem getting the JNDI property: " + propertyName + ". Exception: " + ex.getMessage(), ex );
+		} finally {
 			try {
-				context.close();
-			}
-			catch( NamingException ne ) {} // Nothing you can do about it
+				if( context != null )
+					context.close();
+			} catch( NamingException e ) {}
 		}
 	}
 	
 	
 	/***** GETTERS *****/
+	/**
+	 * @return
+	 */
 	public String getPropertyName() {
 		return propertyName;
 	}
+	/* (non-Javadoc)
+	 * @see pt.jmfgameiro.resources.core.property.Property#getProperty()
+	 */
+	@Override
 	public T getProperty() {
 		return property;
 	}

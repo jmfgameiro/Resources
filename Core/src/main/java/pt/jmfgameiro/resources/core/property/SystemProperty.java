@@ -1,5 +1,12 @@
 package pt.jmfgameiro.resources.core.property;
 
+import pt.jmfgameiro.resources.core.validator.StringValidator;
+
+/**
+ * @author João Gameiro
+ *
+ * @param <T>
+ */
 public final class SystemProperty< T > implements Property< T > {
 	
 	/***** CONSTANTS *****/
@@ -8,9 +15,12 @@ public final class SystemProperty< T > implements Property< T > {
 	
 	
 	/***** CONSTRUCTOR *****/
+	/**
+	 * @param propertyName
+	 */
 	@SuppressWarnings( "unchecked" )
 	public SystemProperty( String propertyName ) {
-		if( propertyName == null || propertyName.trim().equals( "" ) )
+		if( StringValidator.isNullOrEmpty( propertyName ) )
 			throw new IllegalArgumentException( "The propertyName cannot be null or empty." );
 		
 		this.propertyName = propertyName;
@@ -19,7 +29,7 @@ public final class SystemProperty< T > implements Property< T > {
 			this.property = ( T )System.getProperty( propertyName );
 		}
 		catch( ClassCastException cce ) {
-			throw new IllegalArgumentException( "The property is not of the type provided." );
+			throw new IllegalArgumentException( "The property is not of the type provided.", cce );
 		}
 		
 		if( this.property == null )
@@ -28,9 +38,16 @@ public final class SystemProperty< T > implements Property< T > {
 	
 	
 	/***** GETTERS *****/
+	/**
+	 * @return
+	 */
 	public String getPropertyName() {
 		return propertyName;
 	}
+	/* (non-Javadoc)
+	 * @see pt.jmfgameiro.resources.core.property.Property#getProperty()
+	 */
+	@Override
 	public T getProperty() {
 		return property;
 	}

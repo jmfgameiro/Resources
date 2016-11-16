@@ -8,62 +8,102 @@ import org.junit.Test;
 
 import pt.jmfgameiro.resources.core.encoder.resource.DigestEncoderHashWithSalt;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class DigestEncoderTest {
 	
-	/*****  *****/
+	/***** CONSTANTS *****/
 	private static final String PARAM = "password";
 	
 	
-	/*****  *****/
+	/***** TESTS *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void md2() {
 		testHash( DigestEncoderAlgorithm.MD2 );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void md2WithSalt() {
 		testHashWithSalt( DigestEncoderAlgorithm.MD2 );
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void md5() {
 		testHash( DigestEncoderAlgorithm.MD5 );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void md5WithSalt() {
 		testHashWithSalt( DigestEncoderAlgorithm.MD5 );
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void sha() {
 		testHash( DigestEncoderAlgorithm.SHA );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void shaWithSalt() {
 		testHashWithSalt( DigestEncoderAlgorithm.SHA );
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void sha256() {
 		testHash( DigestEncoderAlgorithm.SHA256 );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void sha256WithSalt() {
 		testHashWithSalt( DigestEncoderAlgorithm.SHA256 );
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void sha384() {
 		testHash( DigestEncoderAlgorithm.SHA384 );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void sha384WithSalt() {
 		testHashWithSalt( DigestEncoderAlgorithm.SHA384 );
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void sha512() {
 		testHash( DigestEncoderAlgorithm.SHA512 );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void sha512WithSalt() {
 		testHashWithSalt( DigestEncoderAlgorithm.SHA512 );
@@ -71,6 +111,9 @@ public final class DigestEncoderTest {
 	
 	
 	/***** PRIVATE *****/
+	/**
+	 * @param algorithm
+	 */
 	private void testHash( DigestEncoderAlgorithm algorithm ) {
 		try {
 			String hash = DigestEncoder.hash( algorithm, StandardCharsets.UTF_8, PARAM );
@@ -82,6 +125,9 @@ public final class DigestEncoderTest {
 			fail( "[" + algorithm.getName() + "] EXCEPTION: " + e.getMessage() );
 		}
 	}
+	/**
+	 * @param algorithm
+	 */
 	private void testHashWithSalt( DigestEncoderAlgorithm algorithm ) {
 		try {
 			DigestEncoderHashWithSalt hashWithSalt = DigestEncoder.hashWithSalt( algorithm, StandardCharsets.UTF_8, PARAM );

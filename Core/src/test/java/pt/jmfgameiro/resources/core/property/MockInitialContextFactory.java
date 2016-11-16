@@ -9,6 +9,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.naming.spi.InitialContextFactory;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class MockInitialContextFactory implements InitialContextFactory {
 	
 	/***** CONSTANTS *****/
@@ -40,10 +44,17 @@ public final class MockInitialContextFactory implements InitialContextFactory {
 	
 	
 	/***** PUBLIC *****/
+	/* (non-Javadoc)
+	 * @see javax.naming.spi.InitialContextFactory#getInitialContext(java.util.Hashtable)
+	 */
 	@Override
 	public Context getInitialContext( Hashtable<?, ?> environment ) throws NamingException {
 		return CONTEXT;
 	}
+	/**
+	 * @param name
+	 * @param obj
+	 */
 	public static void bind( String name, Object obj ) {
 		try {
 			CONTEXT.bind( name, obj );

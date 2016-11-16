@@ -9,6 +9,10 @@ import org.junit.Test;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class LocalDateTimeJsonSerializerTest {
 	
 	/***** CONSTANTS *****/
@@ -24,6 +28,9 @@ public final class LocalDateTimeJsonSerializerTest {
 	
 	
 	/***** TESTS *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void test() {
 		LocalDateTime localDateTime = LocalDateTime.now();

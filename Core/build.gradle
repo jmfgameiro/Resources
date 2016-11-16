@@ -24,10 +24,13 @@ repositories {
 //
 dependencies {
 	compile 	group: 'com.google.code.gson', 				name: 'gson',		version: '2.7'
+	compile		group: 'org.ehcache',						name: 'ehcache',	version: '3.1.0'
+	compile 	group: 'ch.qos.logback', 			name: 'logback-classic',	version: '1.1.7'
 	
 	testCompile group: 'pt.jmfgameiro.generator.text',		name: 'Text',		version: '1.0.0.Final'
 	testCompile group: 'pt.jmfgameiro.generator.number',	name: 'Numeric',	version: '1.0.0.Final'
     testCompile group: 'junit',								name: 'junit',		version: '4.+'
+    testCompile group: 'org.mongodb',				name: 'mongo-java-driver',	version: '3.3.0'
 }
 
 //

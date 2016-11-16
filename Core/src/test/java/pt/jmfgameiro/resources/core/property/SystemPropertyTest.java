@@ -4,6 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class SystemPropertyTest {
 	
 	/***** CONSTANTS *****/
@@ -13,6 +17,9 @@ public final class SystemPropertyTest {
 	
 	
 	/***** TEST *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void javaVersion() {
 		SystemProperty< String > javaVersion = new SystemProperty< String >( JAVAVERSIONPRP );

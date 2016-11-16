@@ -13,6 +13,10 @@ import com.google.gson.GsonBuilder;
 import pt.jmfgameiro.generator.number.DoubleRandomizer;
 import pt.jmfgameiro.generator.text.Text;
 
+/**
+ * @author João Gameiro
+ *
+ */
 public final class ListJsonSerializerTest {
 	
 	/***** CONSTANTS *****/
@@ -20,8 +24,8 @@ public final class ListJsonSerializerTest {
 	private static final List< Double > LISTDOUBLES = new ArrayList< Double >();
 	private static final List< String > LISTNAMES = new ArrayList< String >();
 	private static final int LIST_SIZE = 5;
-	private static final double MIN_SIZE = 10.0;
-	private static final double MAX_SIZE = 10.0;
+	private static final double MIN_RAND = 10.0;
+	private static final double MAX_RAND = 10.0;
 	
 	
 	/***** STATIC *****/
@@ -30,13 +34,16 @@ public final class ListJsonSerializerTest {
 		gsonBuilder.registerTypeAdapter( List.class, new ListJsonSerializer() );
 		GSONFORMATTER = gsonBuilder.create();
 		for( int i = 0; i < LIST_SIZE; i++ ) {
-			LISTDOUBLES.add( DoubleRandomizer.random( MIN_SIZE, MAX_SIZE ) );
+			LISTDOUBLES.add( DoubleRandomizer.random( MIN_RAND, MAX_RAND ) );
 			LISTNAMES.add( Text.name() );
 		}
 	}
 	
 	
 	/***** TESTS *****/
+	/**
+	 * 
+	 */
 	@Test
 	public void testDoubles() {
 		String actual = GSONFORMATTER.toJson( LISTDOUBLES );
@@ -52,6 +59,9 @@ public final class ListJsonSerializerTest {
 		assertEquals( expected.toString(), actual );
 		System.out.println( actual );
 	}
+	/**
+	 * 
+	 */
 	@Test
 	public void testNames() {
 		String actual = GSONFORMATTER.toJson( LISTNAMES );
