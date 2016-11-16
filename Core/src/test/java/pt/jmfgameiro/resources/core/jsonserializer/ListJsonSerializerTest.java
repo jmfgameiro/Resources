@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import pt.jmfgameiro.resources.core.random.RandomNumber;
-import pt.jmfgameiro.resources.core.random.RandomString;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import pt.jmfgameiro.generator.number.DoubleRandomizer;
+import pt.jmfgameiro.generator.text.Text;
 
 public final class ListJsonSerializerTest {
 	
@@ -20,6 +20,8 @@ public final class ListJsonSerializerTest {
 	private static final List< Double > LISTDOUBLES = new ArrayList< Double >();
 	private static final List< String > LISTNAMES = new ArrayList< String >();
 	private static final int LIST_SIZE = 5;
+	private static final double MIN_SIZE = 10.0;
+	private static final double MAX_SIZE = 10.0;
 	
 	
 	/***** STATIC *****/
@@ -27,10 +29,9 @@ public final class ListJsonSerializerTest {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter( List.class, new ListJsonSerializer() );
 		GSONFORMATTER = gsonBuilder.create();
-		
 		for( int i = 0; i < LIST_SIZE; i++ ) {
-			LISTDOUBLES.add( RandomNumber.randomDouble( 10.0, 30.0 ) );
-			LISTNAMES.add( RandomString.randomName() );
+			LISTDOUBLES.add( DoubleRandomizer.random( MIN_SIZE, MAX_SIZE ) );
+			LISTNAMES.add( Text.name() );
 		}
 	}
 	
