@@ -18,7 +18,7 @@ public final class NamingProperty< T > implements Property< T > {
 	/***** CONSTANTS *****/
 	private final String propertyName;
 	private final T property;
-	private final Logger LOG = LoggerFactory.getLogger( NamingProperty.class );
+	private static final Logger LOG = LoggerFactory.getLogger( NamingProperty.class );
 	
 	
 	/***** CONSTRUCTOR *****/

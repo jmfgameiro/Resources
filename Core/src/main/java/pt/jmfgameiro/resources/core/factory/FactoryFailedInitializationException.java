@@ -14,4 +14,11 @@ public final class FactoryFailedInitializationException extends RuntimeException
 		super( cause );
 	}
 	
+	/**
+	 * @param message
+	 */
+	public FactoryFailedInitializationException( String message ) {
+		super( message );
+	}
+	
 }

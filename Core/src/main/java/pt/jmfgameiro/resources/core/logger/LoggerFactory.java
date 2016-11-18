@@ -23,6 +23,7 @@ import pt.jmfgameiro.resources.core.factory.FactoryFailedInitializationException
 import pt.jmfgameiro.resources.core.factory.FactoryHasAlreadyBeenInitializedException;
 import pt.jmfgameiro.resources.core.factory.FactoryState;
 import pt.jmfgameiro.resources.core.factory.FactoryTimePolicy;
+import pt.jmfgameiro.resources.core.validator.StringValidator;
 import pt.jmfgameiro.resources.core.factory.FactoryIsUninitializedException;
 import pt.jmfgameiro.resources.core.cache.CacheFactory;
 
@@ -65,6 +66,8 @@ public final class LoggerFactory {
 				break;
 			case SUCCESSFUL_INITIALIZATION:
 				throw new FactoryHasAlreadyBeenInitializedException();
+			default:
+				throw new FactoryFailedInitializationException( "The current state of the factory is null!" );
 		}
 	}
 	
@@ -119,10 +122,10 @@ public final class LoggerFactory {
 	 * @param builder
 	 */
 	private static void executeBuild( LoggerFactoryBuilder builder ) {
+		if( !builder.isConsoleAppender() && !builder.isFileAppender() && builder.getCustomAppenders().isEmpty() )
+			throwBuildException( "No appenders were defined!", null );
+		
 		try {
-			if( !builder.isConsoleAppender() && !builder.isFileAppender() && builder.getCustomAppenders().isEmpty() )
-				throw new IllegalArgumentException( "No appenders were defined!" );
-			
 			// Logger Level
 			level = builder.getLevel();
 			
@@ -159,14 +162,10 @@ public final class LoggerFactory {
 			
 			// Factory State
 			state = FactoryState.SUCCESSFUL_INITIALIZATION;
-			return;
 		} catch( Exception t ) {
-			state = FactoryState.FAILED_INITIALIZATION;
-			rollingFileAppender = null;
-			consoleAppender = null;
-			level = null;
-			throw new FactoryFailedInitializationException( t );
+			throwBuildException( null, t );
 		}
+		return;
 	}
 	
 	/**
@@ -235,6 +234,20 @@ public final class LoggerFactory {
 		else if( code.length() < 10 )
 			code = code.concat( code ).substring( 0, 10 );
 		return code;
+	}
+	
+	/**
+	 * @param message
+	 * @param e
+	 */
+	private static void throwBuildException( String message, Exception e ) {
+		state = FactoryState.FAILED_INITIALIZATION;
+		rollingFileAppender = null;
+		consoleAppender = null;
+		level = null;
+		if( !StringValidator.isNullOrEmpty( message ) )
+			throw new FactoryFailedInitializationException( message );
+		throw new FactoryFailedInitializationException( e );
 	}
 	
 	
